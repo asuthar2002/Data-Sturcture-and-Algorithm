@@ -1,0 +1,39 @@
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+// *sorry for spelling error;
+
+//Using two pointer approch fast and slow , our fast will move 2 value and slow will move by one value ,
+//so when fast will reaches at end then our slow will be at middle of our linked list and we will return slow pointer value ;
+//here base case is when our head pointes toward NULL or there is only only one value in our linked list ;
+
+
+if(head == NULL || head->next == NULL){
+            return head;
+        }
+        if(head->next->next == NULL){
+            return head->next;
+        }
+        ListNode*fast =head->next ;
+        ListNode*slow = head ;
+        while(fast != NULL)
+        {
+            fast = fast->next;
+            if(fast !=NULL) {
+                fast = fast->next;
+            }
+            slow = slow->next;
+            
+        }
+        return slow;
