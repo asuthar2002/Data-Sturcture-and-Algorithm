@@ -1,0 +1,53 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ 
+ 
+ // base condition if there are no element in our linked list or only haveing only one element in our linked list ;
+ // in this case we return null value as return type 
+ // we find the element at middle which we have to delete  ;
+ // this was discussed here -> https://github.com/asuthar2002/Data-Sturcture-and-Algorithm/commit/003aee8f9a36e28f2e87a6450e77ed8965c1d005
+ // then we will delete that value by poiting that to NULL;
+ 
+ 
+ 
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+      
+        if(head == NULL || head->next == NULL){
+            return NULL ;
+        }
+        if(head->next->next ==NULL){
+            head->next = NULL;
+            return head;
+        }
+          ListNode*slow=head;
+        ListNode*fast=head->next->next;
+        while(fast->next!=NULL && fast!=NULL){
+            if(fast->next->next==NULL){
+                slow=slow->next;
+                break;
+            }
+            else{
+             slow=slow->next;
+            fast=fast->next->next;
+            }
+        }
+        
+        ListNode*temp=slow->next;
+        slow->next=temp->next;
+        delete temp;
+        return head;
+    
+    
+    
+    }
+};
