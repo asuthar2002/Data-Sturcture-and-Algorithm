@@ -1,0 +1,59 @@
+Binary search follows the divide and conquer approach in which the list is divided into two halves, and the item is compared with the middle element of the list. If the match is found then, the location of the middle element is returned. Otherwise, we search into either of the halves depending upon the result produced through the match.
+
+Note : Binary search can only be implemented on sorted arrays .
+
+Algo :
+First take a start point as s ;
+Then take a end point as e;
+Now find mid as (s+e)/2;
+Then repeat the below code while (s<=e)
+If arr[mid] == key return key ;
+If arr[mid] < key  this means our key is greater than our mid so we have to search for the key on the right side of mid . So we update our starting point to s= mid+1;
+Else our mid>key so we have to search on the left side of our array . here we will update our e pointer ; e = mid -1;
+At the end if we don’t find match of our key we will return -1;
+
+
+code in C++
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int binarysearch(int array[], int n, int key) {
+  int s = 0;
+  int e = n;
+  while (s <= e) {
+    int mid = (s + e) / 2;
+    if (array[mid] == key) {
+      return mid;
+    } else if (array[mid] > key) {
+      e = mid - 1;
+    } else {
+      s = mid + 1;
+    }
+  }
+  return -1;
+}
+int main() {
+  int n = 7;
+  int array[n] = {1,2,3,4,5,6,7};
+  int key = 5;
+  int ans = binarysearch(array, n, key);
+  cout << ans;
+ 
+  return 0;
+}
+
+
+
+Output -> 4
+
+TIme Complexity : O(lon(N));
+
+Space Complexity: O(1);
+
+
+
+
+
+Author Name: AniL Suthar
+Linkedin Profile: -> https://www.linkedin.com/in/anil-suthar-/
