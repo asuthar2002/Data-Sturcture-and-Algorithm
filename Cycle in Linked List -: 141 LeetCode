@@ -1,0 +1,31 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+    // edge case if our linked list is empty the we will return false as there is no cycle in linked list 
+        if(head==NULL ) return false;
+        
+        //taking fast and slow pointer to triverse the linked list ;
+        ListNode*slow = head;
+        ListNode*fast = head;
+        while(fast != NULL && fast->next != NULL)
+        {
+        // our slow will move one step and fast will move two pointer
+            fast = fast->next->next;
+            slow = slow->next;
+            // so when ever they meet means there is loop in our linked list 
+            if(fast==slow) return true;
+        }
+        
+        // At last if they don't meet meas there is no cyle in linked list ;
+        // so we will return false ;
+        return false;
+    }
+};
