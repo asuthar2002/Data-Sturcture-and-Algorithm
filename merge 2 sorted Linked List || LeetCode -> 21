@@ -1,0 +1,37 @@
+    // firsty we created a dummy node and initiallyed it with zero and then compred with n1 node and n2 node data which is snamller 
+    // we connected dunny node pointer n3 with smaller data node and increaed tem 
+    // at the end we compred that which node is not emply and write the condition to connnect them with n3 and return dummyNode's next pointer ;
+    
+    
+    
+    ListNode*n1 = l1;
+        ListNode*n2  = l2;
+        ListNode* dummyNode = new ListNode(0);
+        ListNode*n3 = dummyNode;
+        while(n1 != NULL &&  n2 != NULL )
+        {
+            if(n1->val < n2->val )
+            {
+                n3->next = n1;
+                n1 = n1->next;
+            }
+            else 
+            {
+                n3->next = n2;
+                n2 = n2->next;
+            }
+            n3 = n3->next;
+        }
+        while(n1 != NULL)
+        {
+            n3 ->next = n1;
+            n1 = n1->next;
+            n3 = n3->next;
+        }
+        while(n2 != NULL)
+        {
+            n3 ->next = n2;
+            n2 = n2->next;
+            n3 = n3->next;
+        }
+        return dummyNode->next;
