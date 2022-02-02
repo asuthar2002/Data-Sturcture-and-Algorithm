@@ -1,0 +1,12 @@
+ListNode *originalHeadA = headA,  *originalHeadB = headB;
+        // turtle headA vs hare headB
+        while (headA || headB) {
+            // checking if a match is found
+            if (headA == headB) return headB;
+            // resetting or advancing A and B as needed
+            if (!headA) headA = originalHeadA;
+            else headA = headA->next;
+            if (!headB) headB = originalHeadB;
+            else headB = headB->next;
+        }
+        return headB;
