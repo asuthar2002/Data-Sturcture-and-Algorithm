@@ -1,0 +1,39 @@
+Node*dnode = new Node(1001);
+        Node*temp = dnode;
+        
+        Node*curr = head;
+        
+        // creating a unordered map 
+        unordered_map<Node*,Node*> map;
+        
+        //creating duplicate linked list and mapping the list
+        while(curr!= NULL )
+        {
+            //create a new node and pointing dummy's next to it  ;
+            Node*n = new Node(curr->val);
+            temp->next = n;
+            
+            // mapping the first linked list with second ;
+            map[curr] = n;
+            
+            // moving current and temp forward ;
+            curr = curr->next;
+            temp = temp->next;
+        }
+        
+        // moving current and temp at origin of both list;
+        curr = head;
+        temp = dnode->next;
+        //now pointing the random pointer using loop 
+        while(curr!=NULL)
+        {
+            //check if random node is not pointing to NULL
+            if(curr->random!= NULL)
+            {
+                // pointing the random pointer
+                temp->random = map[curr->random];
+            }
+                temp = temp->next;
+                curr = curr->next;
+        }
+        return dnode->next;
