@@ -1,0 +1,61 @@
+class Solution {
+    public:
+bool canPlace(vector<string> &board,int n, int rows, int col)
+{
+
+    //up coloumn
+    for(int i=rows;i>=0;i--)
+    {
+        if(board[i][col]=='Q')
+            return false;
+    }
+    //left diagonal
+    int i =rows, j=col;
+    while(i>=0 and j>=0)
+    {
+        if(board[i][j]=='Q')
+            return false;
+        i--;
+        j--;
+    }
+    
+    //right diagonal
+    i=rows, j=col;
+    while(i>=0 and j<n)
+    {
+        if(board[i][j]=='Q')
+            return false;
+        i--;
+        j++;
+    }
+    return true;
+}
+public:
+void Nqueen(vector<string> &board, int n,int i, vector<vector<string>> &ans)
+{
+    //base case
+    if(i==n)
+    {
+        ans.push_back(board);
+        return;
+    }
+    int j;
+    for(j=0;j<n;j++)
+    {
+        if(canPlace(board,n,i,j))
+        {
+            board[i][j]='Q';
+            Nqueen(board,n,i+1,ans);
+            
+            board[i][j]='.';
+        }
+    }
+}
+    public:
+vector<vector<string>> solveNQueens(int n) {
+    vector<vector<string>> ans;
+    vector<string> board(n, string(n,'.'));
+    Nqueen(board, n, 0,ans);
+    return ans;
+}
+};
