@@ -1,0 +1,21 @@
+ stack <TreeNode*>st;
+        TreeNode*node = root;
+        vector<int> ans;
+        while(1)
+        {
+            if(node)
+            {
+                st.push(node);
+                node =  node->left; // moves to left side of the tree ;
+            }
+            else 
+            {
+                if(st.empty()) break;
+                node  = st.top();
+                st.pop();
+                ans.push_back(node->val);
+                node = node->right;
+            }
+        }
+        return ans;
+        
