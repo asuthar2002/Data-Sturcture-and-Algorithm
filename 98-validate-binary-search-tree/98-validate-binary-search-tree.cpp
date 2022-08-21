@@ -11,26 +11,17 @@
  */
 class Solution {
 public:
+    bool code(TreeNode*root, long  int mn, long int mx)
+    {
+        if(not root ) return true;
+        if(root->val >= mx|| root->val <=mn) return false;
+        return code(root->left, mn,root->val) && code(root->right, root->val, mx);
+    }
     bool isValidBST(TreeNode* root) {
-          if(root==NULL) return true;
-        stack<TreeNode*> st;
-        vector<int> ans;
-        TreeNode*node = root;
-        while(!st.empty()|| node != NULL)
-        {
-            while(node!=NULL){
-                st.push(node);
-                node = node->left;
-            }
-            node = st.top();
-            ans.push_back(node->val);
-            st.pop();
-            node = node->right;
-        }
-        for(int i=0;i<ans.size()-1;i++)
-        {
-            if(ans[i]>=ans[i+1]) return false;
-        }
-        return true;
+        long int a = -9999999999;
+        long int b = 9999999999;
+          if(not root ) return true;
+       return code(root,  a,b);
+        
     }
 };
