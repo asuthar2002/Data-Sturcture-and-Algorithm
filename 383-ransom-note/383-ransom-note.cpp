@@ -1,15 +1,19 @@
 class Solution {
 public:
-    bool canConstruct(string ransomNote, string magazine) {
-        map<char,int> m;
-        for(auto it : magazine)
+    bool canConstruct(string r, string m) {
+        unordered_map<char,int> mp;
+        for(int i=0; i<m.length(); i++)
         {
-            m[it]++;
+            mp[m[i]]++;
         }
-        for(auto it: ransomNote)
+        for(int i=0; i<r.length(); i++)
         {
-            if(m[it]>0) m[it]--;
-            else return false;
+            auto it = mp.find(r[i]);
+            if(it != mp.end()){
+                it->second--;
+                if(it->second == 0) mp.erase(it);
+            }
+            else if(it == mp.end()  )return false;
         }
         return true;
     }
