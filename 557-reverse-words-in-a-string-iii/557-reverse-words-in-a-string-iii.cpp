@@ -2,23 +2,21 @@ class Solution {
 public:
     string reverseWords(string s) {
         string ans = "";
-        string a = "";
-        for(int i=0; i<s.length(); i++)
+        string result = "";
+    for(int i=0; i<s.length(); i++)
+    {
+        if(s[i] == ' ')
         {
-            
-            if(s[i] == ' ')
-            {
-                reverse(a.begin(), a.end());
-                ans+=a;
-                ans+=" "; i++;
-                a = "";
-            }
-            
-            a+=s[i];
+            reverse(result.begin(), result.end());
+            ans+=result;
+            ans+=" ";
+            i++;
+            result = "";
         }
-        reverse(a.begin(), a.end());
-                ans+=a;
-                a = "";
+        result+=s[i];
+    }
+        reverse(result.begin(), result.end());
+            ans+=result;
         return ans;
     }
 };
