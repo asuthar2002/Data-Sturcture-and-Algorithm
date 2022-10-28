@@ -1,31 +1,45 @@
 class Solution {
 public:
-    int code(vector<vector<char>>&mat,int i,int j,vector<vector<int>>&dp,int&maxi)
+    int code(vector<vector<char>>&mat,int i,int j,int &maxi,vector<vector<int>>&dp)
     {
-        if(i>=mat.size() || j>=mat[0].size())
+        if(i>=mat.size() || j>=mat[0].size()) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        int right = code(mat,i,j+1,maxi,dp);
+        int down = code(mat,i+1,j,maxi,dp);
+        int diagonal = code(mat,i+1,j+1,maxi,dp);
+        int ans = 0;
+        if(mat[i][j] =='1')
         {
-            return 0;
-        }
-        if(dp[i][j] != -1) return dp[i][j];
-        int r = code(mat,i,j+1,dp,maxi);
-        int d = code(mat,i+1,j+1,dp,maxi);
-        int b = code(mat,i+1,j,dp,maxi);
-        // int ans = 0;
-        if(mat[i][j] == '1')
-        {
-            dp[i][j] = 1+min(r,min(d,b));
+            dp[i][j]=(min(right,min(down,diagonal))+1);
             maxi = max(maxi,dp[i][j]*dp[i][j]);
-            return dp[i][j];
         }
-        else return  dp[i][j] = 0;
+        else dp[i][j] = 0;
+        return dp[i][j];
+    }
+    int codetab(vector<vector<char>>&mat)
+    {
+        int mini = 0;
+        vector<vector<int>>dp(mat.size()+1,vector<int> (mat[0].size()+1,0));
+        for(int i=mat.size()-1; i>=0; i--)
+        {
+            for(int j=mat[0].size()-1; j>=0; j--)
+            {
+                if(mat[i][j] == '1')
+                {
+                    dp[i][j] = 1 + min(dp[i+1][j] , min(dp[i+1][j+1] , dp[i][j+1]));
+                    mini = max(mini,dp[i][j]*dp[i][j]);
+                }
+            }
+        }
+        return mini;
         
     }
-    int maximalSquare(vector<vector<char>>& mat) {
-        int maxi = 0;
-        int n = mat.size();
-        int m = mat[0].size();
-        vector<vector<int>>dp(n,vector<int> (m,-1));
-        int ans = code(mat,0,0,dp,maxi);
-        return maxi;
+    int maximalSquare(vector<vector<char>>& matrix) {
+        // int maxi = 0;
+        // vector<vector<int>> dp(matrix.size()+1,vector<int> (matrix[0].size()+1,-1));
+        // int ans = code(matrix,0,0,maxi,dp);
+        // return maxi;
+        int ans = codetab(matrix);
+        return ans;
     }
 };
