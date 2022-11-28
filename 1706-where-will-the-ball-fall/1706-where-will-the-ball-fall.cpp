@@ -1,30 +1,28 @@
 class Solution {
 public:
-    int code(vector<vector<int>>&g, int i,int row ,int n, int m)
+    int code (vector<vector<int> > &grid, int col , int row)
     {
-        if(i>=n) return row;
-        
-        if(g[i][row] == 1)
+        if(row >= grid.size()) return col;
+        if(grid[row][col] == 1)
         {
-            if(row == m-1  || g[i][row+1] == -1)return -1;
-            if(g[i][row+1] == 1) return code(g,i+1,row+1,n,m);
+            if(col == grid[0].size()-1 || grid[row][col+1] == -1) return -1;
+            if(grid[row][col+1] == 1 ) return code(grid, col+1, row+1);
         }
-        if(g[i][row] == -1)
-        {
-            if(row == 0 || g[i][row-1] == 1) return -1;
-            if(g[i][row-1] == -1) return code(g,i+1,row-1,n,m);
+        else if(grid[row][col] == -1){
+            if(col == 0 || grid[row][col-1] == 1) return -1;
+            if(grid[row][col-1] == -1) return code(grid, col-1, row+1);
         }
         return -1;
     }
-    vector<int> findBall(vector<vector<int>>& g) {
-        int n = g.size();
-        int m = g[0].size();
+    vector<int> findBall(vector<vector<int>>& grid) {
+        int n = grid.size(); 
+        int m = grid[0].size();
         vector<int> ans;
         for(int i=0; i<m ;i++)
         {
-            int a = code(g,0,i,n,m);
+            int a = code(grid , i, 0);
             ans.push_back(a);
         }
-        return ans;
+        return ans ;
     }
 };
