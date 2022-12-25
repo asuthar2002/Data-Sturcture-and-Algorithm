@@ -3,23 +3,20 @@ public:
     vector<int> answerQueries(vector<int>& nums, vector<int>& queries) {
         int n = nums.size();
         int m = queries.size();
-        
-        sort(nums.begin(),nums.end());
+        sort(nums.begin(), nums.end());
+        vector<int> psum;
         int sum = 0;
-        vector<int> pre_sum;
-        
-        for(int i=0;i<n;i++)
-        {
-            sum += nums[i];
-            pre_sum.push_back(sum);           // storing prefix sum
+        for(int i=0; i<n;i++){
+            sum+=nums[i];
+            psum.push_back(sum);
         }
-        
-        vector<int> ans(m,0);
-        for(int i=0;i<m;i++)
+        // precios sum arrau is here psum;
+        vector<int> ans(m, 0);
+        for(int i=0; i<m; i++)
         {
-            for(int j=0;j<n;j++)
+            for(int j=0; j<n; j++)
             {
-                if(pre_sum[j] <= queries[i]) ans[i] = j+1;          // wherever we got the max subsequence sum for i just update that
+                if(psum[j]<=queries[i]) ans[i] = j+1;
                 else break;
             }
         }
