@@ -11,31 +11,27 @@
  */
 class Solution {
 public:
-    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-    if (inorder.size() == 0 || postorder.size() == 0) {
-        return nullptr;
-    }
-    
-    int root_val = postorder.back();
-    postorder.pop_back();
-    TreeNode* root = new TreeNode(root_val);
-    
-    int root_index = 0;
-    for (int i = 0; i < inorder.size(); i++) {
-        if (inorder[i] == root_val) {
-            root_index = i;
-            break;
+    TreeNode* code(vector<int>&in , vector<int>&post){
+        if(in.size() == 0 || post.size() == 0) return NULL;
+        int rootval = post.back();
+        post.pop_back();
+        TreeNode*root = new TreeNode(rootval);
+        int idx ;
+        for(int i=0; i<in.size(); i++){
+            if(in[i] == rootval){
+                idx = i;
+                break;
+            }
         }
+        vector<int> leftin(in.begin(),in.begin()+idx);
+        vector<int> rightin(in.begin()+idx+1, in.end());
+        vector<int> postleft(post.begin(), post.begin()+leftin.size());
+        vector<int> postright(post.begin()+leftin.size(), post.end());
+        root->left = code(leftin,postleft);
+        root->right = code(rightin, postright);
+        return root;
     }
-    
-    vector<int> left_inorder(inorder.begin(), inorder.begin() + root_index);
-    vector<int> right_inorder(inorder.begin() + root_index + 1, inorder.end());
-    vector<int> left_postorder(postorder.begin(), postorder.begin() + left_inorder.size());
-    vector<int> right_postorder(postorder.begin() + left_inorder.size(), postorder.end());
-    
-    root->left = buildTree(left_inorder, left_postorder);
-    root->right = buildTree(right_inorder, right_postorder);
-    
-    return root;
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        return code(inorder, postorder);
     }
 };
