@@ -9,10 +9,10 @@ public:
         }
         bool turn ;
         int cnt = 0;
-        for(int i=0; i<moves.length(); i++){
-            
         if(left>right) turn = false;
         else turn = true;
+        for(int i=0; i<moves.length(); i++){
+            
             if((turn == false and moves[i] == '_') || moves[i] == 'L') {
                 // turn = false;
                 cnt--;
