@@ -25,8 +25,13 @@ public:
         return dp[t] = sum;
     }
     int combinationSum4(vector<int>& nums, int target) {
-        // return code(nums,target,0); // using simple recursion ;
+        // using simple recursion ;
+        // return code(nums,target,0); 
+        
+        // memoization 
         vector<int> dp(target+1,-1);
-         return mem(nums,target,dp);
+        return mem(nums,target,dp);
+        
+       return dp[target];
     }
 };
